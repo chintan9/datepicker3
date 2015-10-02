@@ -1,0 +1,118 @@
+<!doctype html>
+<html ng-app="ui.bootstrap.demo">
+
+<head>
+  <meta charset="utf-8" />
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+  <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.0.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/0.8.3/angular-moment.js"></script>
+  <script src="example.js"></script>
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div ng-controller="TabsDemoCtrl">
+    <div ng-controller="DatepickerDemoCtrl">
+      <div ng-controller="TypeaheadCtrl">
+        <tabset>
+          <tab heading="tab 1" active="data.static1">
+            <form>
+              <fieldset>
+                <!-- Form Name -->
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-12 control-label" for="textinput">First Name</label>
+                  <div class="col-md-12">
+                    <input id="textinput" ng-model="user.firstName" type="text" placeholder="First Name" class="form-control input-md">
+                  </div>
+                </div>
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-12 control-label" for="textinput">Last Name</label>
+                  <div class="col-md-12">
+                    <input id="textinput" ng-model="user.lastName" type="text" placeholder="Last Name" class="form-control input-md">
+                  </div>
+                </div>
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-12 control-label" for="textinput">Email</label>
+                  <div class="col-md-12">
+                    <input id="textinput" ng-model="user.email" type="email" placeholder="Email" class="form-control input-md">
+                  </div>
+                </div>
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-12 control-label" for="textinput">Phone</label>
+                  <div class="col-md-12">
+                    <input id="textinput" ng-model="user.phone" type="tel" placeholder="Phone" class="form-control input-md">
+                  </div>
+                </div>
+                <!-- Button -->
+                <div class="form-group">
+                  <div class="col-md-12">
+                    <br/>
+                    <button type="button" class="btn btn-default btn-sm" ng-click="data.static2 = true">NEXT</button>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </tab>
+          <tab heading="tab 2" active="data.static2">
+            <div class="col-md-12">
+              <div class="col-md-12">
+                <label class="control-label" for="textinput">Loction</label>
+                <input type="text" ng-model="user.selected" typeahead="state for state in states | filter:$viewValue" class="form-control input-md" />
+              </div>
+              <label class="col-md-12 control-label" for="textinput">Start Date</label>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="input-group ">
+                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="startDate" is-open="startDateOpened" min-date="minDate" max-date="{{maxDate}}" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="startDateOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+                  </p>
+                </div>
+              </div>
+              <button type="button" class="btn btn-sm btn-info" ng-click="startDateToday()">Today</button>
+              <button type="button" class="btn btn-sm btn-danger" ng-click="startDateClear()">Clear</button>
+              <label class="col-md-12 control-label" for="textinput">End Date</label>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="endDate" is-open="endDateOpened" min-date="minDate" max-date="{{maxDate}}" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="endDateOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+                  </p>
+                </div>
+              </div>
+              <button type="button" class="btn btn-sm btn-info" ng-click="endDateToday()">Today</button>
+              <button type="button" class="btn btn-sm btn-danger" ng-click="endDateClear()">Clear</button>
+              <hr />
+              <div class="row">
+                <div class="col-md-12">
+                  <pre> <em>{{compare(startDate, endDate)}}</em></pre>
+                </div>
+              </div>
+              <br/>
+              <button type="button" class="btn btn-default btn-sm" ng-click="data.static3 = true">NEXT</button>
+            </div>
+          </tab>
+          <tab heading="tab 3" active="data.static3">
+            <div class="row">
+              <div class="col-md-12">
+                <br/>
+                <br/> {{user.firstName }} {{user.lastName }}({{user.phone}}) will depart {{user.selected }} on {{startDate | date:'fullDate' }} and return {{endDate | date:'fullDate' }}.
+              </div>
+            </div>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
